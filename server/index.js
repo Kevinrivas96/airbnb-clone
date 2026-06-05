@@ -8,7 +8,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"], // ADD THIS LINE
+  }),
+);
 app.use(express.json());
 
 app.use("/api/auth", authRoutes); // add this
