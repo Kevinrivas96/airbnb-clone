@@ -15,4 +15,27 @@ model User {
   avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  listings  Listing[]
+}
+
+model Listing {
+  id          String @id @default(uuid())
+  title      String 
+  description String
+  price       Float
+  location    String
+  city        String
+  country     String
+  category    String
+  guests      Int
+  bedrooms    Int
+  bathrooms   Int
+  images      String[]
+  amenities   String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationship -> every listing belongs to a host
+  hostId  String
+  host    User    @relation(fields: [hostId], references: [id], onDelete: Cascade)
 }
