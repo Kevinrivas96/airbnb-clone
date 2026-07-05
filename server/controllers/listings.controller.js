@@ -31,7 +31,7 @@ const getAllListings = async (req, res) => {
       orderBy: { createdAt: "desc" },
     });
 
-    res.json(listings);
+    res.json({ listings });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
