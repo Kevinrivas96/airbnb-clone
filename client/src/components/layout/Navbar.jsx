@@ -84,6 +84,14 @@ export default function Navbar() {
                     Hi, {user.name}
                   </p>
                   <hr className="my-1" />
+                  <Link
+                    to="/trips"
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    My Trips
+                  </Link>
+                  <hr className="my-1" />
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"

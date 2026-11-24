@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import ListingPage from "./pages/ListingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import TripsPage from "./pages/TripsPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/listings/:id" element={<ListingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/trips" element={<TripsPage />} />
       </Routes>
     </div>
   );

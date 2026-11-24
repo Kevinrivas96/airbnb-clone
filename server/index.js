@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/auth.routes");
 const listingRoutes = require("./routes/listing.routes");
+const bookingRoutes = require("./routes/booking.routes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/listings", listingRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 //Health check route - confirms server is alive
 app.get("/api/health", (req, res) => {
