@@ -119,15 +119,14 @@ export default function BookingWidget({ listing }) {
     setError(null);
 
     try {
-      await api.post("/bookings", {
+      const res = await api.post("/payments/checkout", {
         listingId: listing.id,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
       });
-      setSuccess(true);
+      window.location.href = res.data.url; // redirect to Stripe
     } catch (err) {
       setError(err.response?.data?.error || "Something went wrong");
-    } finally {
       setLoading(false);
     }
   };
@@ -138,26 +137,6 @@ export default function BookingWidget({ listing }) {
     setActiveField(null);
     setError(null);
   };
-
-  if (success)
-    return (
-      <div className="border border-gray-200 rounded-2xl p-6 shadow-lg text-center">
-        <div className="text-4xl mb-3">🎉</div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          Booking confirmed!
-        </h3>
-        <p className="text-gray-500 text-sm mb-4">
-          Your trip to {listing.city} is booked for {nights} night
-          {nights !== 1 ? "s" : ""}.
-        </p>
-        <button
-          onClick={() => navigate("/trips")}
-          className="w-full bg-rose-500 text-white py-3 rounded-xl font-medium hover:bg-rose-600 transition"
-        >
-          View my trips
-        </button>
-      </div>
-    );
 
   const days = getDaysInMonth(calendarMonth);
   const monthLabel = format(calendarMonth, "MMMM yyyy");

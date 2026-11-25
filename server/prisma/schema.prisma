@@ -17,6 +17,7 @@ model User {
   updatedAt DateTime @updatedAt
   listings  Listing[]
   bookingsAsGuest Booking[] @relation("GuestBookings")
+  reviews   Review[]
 }
 
 model Listing {
@@ -38,6 +39,7 @@ model Listing {
   hostId  String
   host    User    @relation(fields: [hostId], references: [id], onDelete: Cascade)
   bookings    Booking[]
+  reviews     Review[]
 }
 
 model Booking {
@@ -46,11 +48,25 @@ model Booking {
   endDate     DateTime
   totalPrice  Float
   status      String    @default("pending")
+  stripeSessionId String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   listingId   String
   listing     Listing   @relation(fields: [listingId], references: [id], onDelete: Cascade)
   guestId     String
   guest       User      @relation("GuestBookings", fields: [guestId], references: [id], onDelete: Cascade)
+  review     Review?
 }
 
+model Review{
+  id        String    @id @default(uuid())
+  rating    Int
+  comment   String
+  createdAt DateTime  @default(now())
+  bookingId String    @unique
+  booking   Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  listingId String
+  listing   Listing   @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}

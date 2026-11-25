@@ -6,7 +6,7 @@ const {
   createListing,
   updateListing,
   deleteListing,
-} = require("../controllers/listings.controller");
+} = require("../controllers/listing.controller");
 const { protect } = require("../middleware/auth.middleware");
 const { upload } = require("../config/cloudinary");
 

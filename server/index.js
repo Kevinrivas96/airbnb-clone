@@ -5,6 +5,9 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth.routes");
 const listingRoutes = require("./routes/listing.routes");
 const bookingRoutes = require("./routes/booking.routes");
+const paymentRoutes = require("./routes/payment.routes");
+const reviewRoutes = require("./routes/review.routes");
+const { handleWebhook } = require("./controllers/payment.controller");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,11 +20,22 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
+// Webhook needs the RAW body, so it goes BEFORE express.json()
+app.post(
+  "/api/payments/webhook",
+  express.raw({ type: "application/json" }),
+  handleWebhook,
+);
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/listings", listingRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("api/bookings", paymentRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 //Health check route - confirms server is alive
 app.get("/api/health", (req, res) => {
@@ -40,5 +54,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`erver running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

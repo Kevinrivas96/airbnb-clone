@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api/axios";
 import BookingWidget from "../components/listings/BookingWidget";
+import ReviewsSection from "../components/listings/ReviewSection";
 
 export default function ListingPage() {
   const { id } = useParams();
@@ -118,6 +119,10 @@ export default function ListingPage() {
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
               About this space
             </h3>
+            {/* Reviews */}
+            <div className="py-6 border-t border-gray-200">
+              <ReviewsSection listingId={listing.id} />
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-3 text-gray-700">
                 <span className="text-2xl">👥</span>

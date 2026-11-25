@@ -1,5 +1,5 @@
 const prisma = require("../prisma/client");
-const { cloudinary } = require("../config/cloudinary");
+const { cloudinary, uploadToCloudinary } = require("../config/cloudinary");
 
 // GET /api/listings - Get all listings with optional filters
 const getAllListings = async (req, res) => {
@@ -84,7 +84,11 @@ const createListing = async (req, res) => {
     } = req.body;
 
     // Get uploaded image URLs from Cloudinary
-    const images = req.files ? req.files.map((file) => file.path) : [];
+    const images = req.files
+      ? await Promise.all(
+          req.files.map((file) => uploadToCloudinary(file.buffer)),
+        )
+      : [];
 
     if (images.length === 0) {
       return res.status(400).json({ error: "At least one image is required" });
@@ -155,7 +159,9 @@ const updateListing = async (req, res) => {
     // if new images uploaded, use them - otherwise keep existing
     const images =
       req.files && req.files.length > 0
-        ? req.files.map((file) => file.path)
+        ? await Promise.all(
+            req.files.map((file) => uploadToCloudinary(file.buffer)),
+          )
         : existing.images;
 
     const listing = await prisma.listing.update({
