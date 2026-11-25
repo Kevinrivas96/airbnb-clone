@@ -11,7 +11,7 @@ const categories = [
 
 export default function CategoryFilter({ selected, onSelect }) {
   return (
-    <div className="flex gap-6 overflow-x-auto px-6 py-4 border-b border-gray-200 scrollbar-hide">
+    <div className="flex justify-center gap-8 overflow-x-auto px-6 py-4 border-b border-gray-200 scrollbar-hide">
       {categories.map((cat) => (
         <button
           key={cat.label}
