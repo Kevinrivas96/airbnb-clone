@@ -19,17 +19,13 @@ A full-stack vacation rental marketplace inspired by Airbnb. Guests can browse s
 
 ## Screenshots
 
-| Listing page                             |
-| ---------------------------------------- |
-| ![Listing](docs/screenshots/listing.png) |
+| Listing page                             | My Trips                             |
+| ---------------------------------------- | ------------------------------------ |
+| ![Listing](docs/screenshots/listing.png) | ![Trips](docs/screenshots/trips.png) |
 
-| My Trips                             |
-| ------------------------------------ |
-| ![Trips](docs/screenshots/trips.png) |
-
-| Booking widget                           |
-| ---------------------------------------- |
-| ![Booking](docs/screenshots/booking.png) |
+| Booking widget                           | Stripe Payments                         |
+| ---------------------------------------- | --------------------------------------- |
+| ![Booking](docs/screenshots/booking.png) | ![Booking](docs/screenshots/stripe.png) |
 
 ## Tech Stack
 
